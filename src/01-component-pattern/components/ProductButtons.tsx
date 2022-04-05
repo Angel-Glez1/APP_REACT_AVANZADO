@@ -1,14 +1,20 @@
+import React from 'react';
 import { useContext } from "react";
 import { ProductContext } from "./ProductCard";
 import style from '../styles/styles.module.css';
 
-export const ProductButtons = () => {
+export interface Props {
+    className?: string
+    style?: React.CSSProperties
+}
+
+export const ProductButtons = ({ className, style: cssInline }: Props) => {
 
     const { increaseBy, counter } = useContext(ProductContext);
 
 
     return (
-        <div className={style.buttonsContainer}>
+        <div className={`${style.buttonsContainer} ${className}`} style={cssInline} >
             <button
                 className={style.buttonMinus}
                 onClick={() => increaseBy(-1)}

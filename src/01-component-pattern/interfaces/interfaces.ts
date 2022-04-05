@@ -1,27 +1,29 @@
-import { ReactElement } from 'react';
+import { Props as ProductCardProps } from '../components/ProductCard'
+import { Props as ProductImgProps } from '../components/ProductImage';
+import { Props as ProductTitleProps } from '../components/ProductTitle';
+import { Props as ProductoButtonsProps } from '../components/ProductButtons';
 
 
 export interface ProductContextProps {
-    product: Product;
     counter: number;
+    product: Product;
     increaseBy: (value: number) => void,
 }
 
-export interface ProductCardProps {
-    product: Product;
-    children?: ReactElement | ReactElement[]
-
-}
 
 export interface Product {
     id: string;
-    title: string;
     img?: string;
+    title: string;
 }
 
+
+// Esta es la interface con la que manejamos la llamada del componente por puntos <ProductCard.Title />
+
+
 export interface ProductCardHOCProps {
-    ({ product, children }: ProductCardProps): JSX.Element,
-    Title: ({ title }: { title?: string }) => JSX.Element,
-    Img: ({ img }: { img?: string | undefined }) => JSX.Element,
-    Buttons: () => JSX.Element
+    (Props: ProductCardProps): JSX.Element, // Este es el componete Padre
+    Title:   ( Props: ProductTitleProps ) => JSX.Element,
+    Img:     ( Props: ProductImgProps ) => JSX.Element,
+    Buttons: ( Props: ProductoButtonsProps ) => JSX.Element
 }

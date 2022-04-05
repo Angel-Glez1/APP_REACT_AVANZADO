@@ -17,6 +17,9 @@
 
 .productDescription {
     margin: 10px;
+    color: black;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .buttonsContainer {
