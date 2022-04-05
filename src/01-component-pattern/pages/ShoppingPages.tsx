@@ -14,18 +14,18 @@ const ShoppingPages = () => {
             <h1>Shopping Pages</h1>
             <hr />
 
-            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+            <div className='grid'>
 
-                <ProductCard product={product}>
-                    <ProductCard.Img />
-                    <ProductCard.Title />
-                    <ProductCard.Buttons />
+                <ProductCard product={product} className="bg-dark text-white">
+                    <ProductCard.Img className="custom-image" />
+                    <ProductCard.Title className="text-bold" />
+                    <ProductCard.Buttons className="custom-buttons" />
                 </ProductCard>
 
-                <ProductCard product={product}>
-                    <ProductImage />
-                    <ProductTitle style={{ margin: 0 }} />
-                    <ProductButtons />
+                <ProductCard product={product} className="bg-dark text-white" >
+                    <ProductImage className="custom-image" />
+                    <ProductTitle className="text-bold" />
+                    <ProductButtons className="custom-buttons" />
                 </ProductCard>
 
             </div>
