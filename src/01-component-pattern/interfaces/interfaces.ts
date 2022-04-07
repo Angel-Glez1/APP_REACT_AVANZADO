@@ -8,6 +8,7 @@ export interface ProductContextProps {
     counter: number;
     product: Product;
     increaseBy: (value: number) => void,
+    
 }
 
 
@@ -26,4 +27,14 @@ export interface ProductCardHOCProps {
     Title:   ( Props: ProductTitleProps ) => JSX.Element,
     Img:     ( Props: ProductImgProps ) => JSX.Element,
     Buttons: ( Props: ProductoButtonsProps ) => JSX.Element
+}
+
+
+export interface onChangeArgs {
+    product: Product;
+    count: number;
+}
+
+export interface ProductInCard extends Product {
+    count: number
 }

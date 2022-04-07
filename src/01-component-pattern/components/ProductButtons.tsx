@@ -6,9 +6,10 @@ import style from '../styles/styles.module.css';
 export interface Props {
     className?: string
     style?: React.CSSProperties
+    
 }
 
-export const ProductButtons = ({ className, style: cssInline }: Props) => {
+export const ProductButtons = ({ className,  style: cssInline }: Props) => {
 
     const { increaseBy, counter } = useContext(ProductContext);
 

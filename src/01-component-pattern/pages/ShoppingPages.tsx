@@ -1,32 +1,58 @@
 import { ProductImage, ProductTitle, ProductButtons, ProductCard } from '../components';
+import { products } from '../data/Products';
+import useShoppingCart from '../hooks/useShoppingCart';
 import '../styles/custom-styles.css';
 
-const product = {
-    id: '1',
-    title: 'Taza',
-    img: './coffee-mug.png'
 
-}
 
 const ShoppingPages = () => {
+
+    const { shoppingCard, onProductCardChange } = useShoppingCart();
+
     return (
         <div>
             <h1>Shopping Pages</h1>
             <hr />
 
             <div className='grid'>
+                
+                {
+                    products.map(product => (
+                        <ProductCard
+                            className="bg-dark text-white"
+                            key={product.id}
+                            onChange={onProductCardChange}
+                            product={product}
+                            value={shoppingCard[product.id]?.count}
+                        >
 
-                <ProductCard product={product} className="bg-dark text-white">
-                    <ProductCard.Img className="custom-image" />
-                    <ProductCard.Title className="text-bold" />
-                    <ProductCard.Buttons className="custom-buttons" />
-                </ProductCard>
+                            <ProductImage className="custom-image" />
+                            <ProductTitle className="text-bold" />
+                            <ProductButtons className="custom-buttons" />
 
-                <ProductCard product={product} className="bg-dark text-white" >
-                    <ProductImage className="custom-image" />
-                    <ProductTitle className="text-bold" />
-                    <ProductButtons className="custom-buttons" />
-                </ProductCard>
+                        </ProductCard>
+                    ))
+                }
+
+            </div>
+
+            <div className="shopping-card">
+                
+                {
+                    Object.entries(shoppingCard).map(([key, product]) => (
+                        <ProductCard
+                            className="bg-dark text-white"
+                            key={product.id}
+                            onChange={onProductCardChange}
+                            product={product}
+                            style={{ width: '100px' }}
+                            value={product.count}
+                        >
+                            <ProductImage className="custom-image" />
+                            <ProductButtons className="custom-buttons" />
+                        </ProductCard>
+                    ))
+                }
 
             </div>
 
