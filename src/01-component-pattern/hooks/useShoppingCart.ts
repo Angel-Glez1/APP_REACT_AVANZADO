@@ -13,25 +13,20 @@ const useShoppingCart = () => {
 
         setShoppingCard(oldShoppingCart => {
 
-            const productInCard: ProductInCard = oldShoppingCart[product.id] || { ...product, count: 0 };
+            if (count === 0) {
+                // Borrar el producto.
+                const { [product.id]: toDelete, ...rest } = oldShoppingCart;
+                return { ...rest };
 
-
-            //* Si exite el producto incrementamos
-            if (Math.max(productInCard.count + count, 0) > 0) {
-                productInCard.count += count;
-                return {
-                    ...oldShoppingCart,
-                    [product.id]: productInCard
-                }
             }
 
+            return {
 
-            // Borrar el producto.
-            const { [product.id]: toDelete, ...rest } = oldShoppingCart;
-            return { ...rest };
+                ...oldShoppingCart,
+                [product.id]: { ...product, count }
+            }
 
         });
-
     }
 
 
