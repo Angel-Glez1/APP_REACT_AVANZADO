@@ -1,60 +1,50 @@
 import { ProductImage, ProductTitle, ProductButtons, ProductCard } from '../components';
 import { products } from '../data/Products';
-import useShoppingCart from '../hooks/useShoppingCart';
 import '../styles/custom-styles.css';
+import useShoppingCart from '../hooks/useShoppingCart';
 
 
+const product = products[0];
 
 const ShoppingPages = () => {
 
-    const { shoppingCard, onProductCardChange } = useShoppingCart();
 
     return (
         <div>
             <h1>Shopping Pages</h1>
-            <hr />
 
-            <div className='grid'>
-                
+            <ProductCard
+                className="bg-dark text-white"
+                product={product}
+                initialValues={{
+                    count: 4,
+                    maxCount: 10
+                }}
+            >
                 {
-                    products.map(product => (
-                        <ProductCard
-                            className="bg-dark text-white"
-                            key={product.id}
-                            onChange={onProductCardChange}
-                            product={product}
-                            value={shoppingCard[product.id]?.count}
-                        >
+                    ({ reset, isMaxCountReached, maxCount, increaseBy, count, product }) => (
 
+                        <>
                             <ProductImage className="custom-image" />
                             <ProductTitle className="text-bold" />
                             <ProductButtons className="custom-buttons" />
 
-                        </ProductCard>
-                    ))
+                            <button onClick={reset} className='btn-reset'> Reset </button>
+                            <button onClick={() => increaseBy(-2)} className='btn-reset'>-2</button>
+
+                            {
+                                !isMaxCountReached && (<button onClick={() => increaseBy(+2)} className='btn-reset'>+2</button>)
+                            }
+
+                            <span className='btn-reset' > {count} | Max : {maxCount}  </span>
+
+
+                        </>
+                    )
                 }
+            </ProductCard>
 
-            </div>
 
-            <div className="shopping-card">
-                
-                {
-                    Object.entries(shoppingCard).map(([key, product]) => (
-                        <ProductCard
-                            className="bg-dark text-white"
-                            key={product.id}
-                            onChange={onProductCardChange}
-                            product={product}
-                            style={{ width: '100px' }}
-                            value={product.count}
-                        >
-                            <ProductImage className="custom-image" />
-                            <ProductButtons className="custom-buttons" />
-                        </ProductCard>
-                    ))
-                }
-
-            </div>
 
         </div>
     )

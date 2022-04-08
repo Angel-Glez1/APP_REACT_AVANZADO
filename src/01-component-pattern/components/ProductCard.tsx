@@ -1,5 +1,5 @@
 import { createContext, ReactElement } from 'react';
-import { ProductContextProps, Product, onChangeArgs } from '../interfaces/interfaces';
+import { ProductContextProps, Product, onChangeArgs, InitialValues, ProductCardHandlers } from '../interfaces/interfaces';
 import useProductos from '../hooks/useProductos';
 import style from '../styles/styles.module.css';
 
@@ -10,18 +10,26 @@ const { Provider } = ProductContext;
 
 
 export interface Props {
-    product: Product;
-    children?: ReactElement | ReactElement[];
+    // children?: ReactElement | ReactElement[];
+
     className?: string;
-    style?: React.CSSProperties;
-    onChange?: (args: onChangeArgs) => void;
+    initialValues?: InitialValues
+    product: Product;
+    styles?: React.CSSProperties;
     value?: number;
 
+    children: (args: ProductCardHandlers) => JSX.Element
+    onChange?: (args: onChangeArgs) => void;
 }
 
-export const ProductCard = ({ product, onChange, children, value, className, style: cssInline }: Props) => {
 
-    const { counter, increaseBy } = useProductos({ product, onChange, value });
+
+export const ProductCard = ({ initialValues, product, onChange, children, value, className, styles }: Props) => {
+
+    const {
+        counter, increaseBy, maxCount, isMaxCountReached, reset
+
+    } = useProductos({ product, onChange, value, initialValues });
 
 
     return (
@@ -30,11 +38,25 @@ export const ProductCard = ({ product, onChange, children, value, className, sty
                 counter,
                 increaseBy,
                 product,
+                maxCount
+
             }}
         >
 
-            <div className={`${style.productCard} ${className}`} style={cssInline}>
-                {children}
+            <div className={`${style.productCard} ${className}`} style={styles}>
+
+                {
+                    children({
+                        count: counter,
+                        maxCount: initialValues?.maxCount,
+                        product,
+                        isMaxCountReached,
+
+                        increaseBy,
+                        reset
+                    })
+                }
+
             </div>
 
         </Provider>
